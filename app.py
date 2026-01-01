@@ -15,7 +15,7 @@ def agent_portrayal(agent):
 
 
 # Model parameters that can be adjusted via UI sliders and checkboxes
-model_parames = {
+model_params = {
     "know_rumor_ratio": {
         "type": "SliderFloat",
         "value": 0.3,
@@ -53,18 +53,18 @@ renderer = SpaceRenderer(model=rumor_model, backend="matplotlib").render(
 rumor_spread_plot = make_plot_component(
     "Percentage_Knowing_Rumor", page=1  # Track percentage who know rumor
 )
-successive_diff_plot = make_plot_component(
-    "New_Times_Heard_Rumor", page=1  # Track average times heard
+times_heard_plot = make_plot_component(
+    "Times_Heard_Rumor_Per_Step", page=1  # Track total times rumor was heard this step
 )
-ratio_new_knowing_rumor_plot = make_plot_component(
-    "New_People_Knowing_Rumor", page=1  # Track number of new people knowing rumor
+new_learners_percentage_plot = make_plot_component(
+    "New_People_Knowing_Rumor", page=1  # Track percentage of new learners per step
 )
 
 # Create the visualization page with all components
 page = SolaraViz(
     rumor_model,
     renderer,
-    components=[rumor_spread_plot, successive_diff_plot, ratio_new_knowing_rumor_plot],
-    model_params=model_parames,
+    components=[rumor_spread_plot, times_heard_plot, new_learners_percentage_plot],
+    model_params=model_params,
     name="Rumor Mill Model",
 )
