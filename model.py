@@ -7,10 +7,11 @@ from agent import Person
 
 class RumorMillModel(Model):
 
-    def __init__(self, width=10, height=10, know_rumor_ratio=0.01, eight_neightborhood=False, seed=None):
+    def __init__(self, width=10, height=10, know_rumor_ratio=0.01, rumor_spread_chance=0.5, eight_neightborhood=False, seed=None):
         super().__init__(seed=seed)
         self.number_of_agents = width * height
         self.know_rumor_ratio = know_rumor_ratio
+        self.rumor_spread_chance = rumor_spread_chance
         if eight_neightborhood:
             self.grid = OrthogonalMooreGrid((width, height), random=self.random)
         else:
@@ -27,6 +28,7 @@ class RumorMillModel(Model):
             self,
             self.number_of_agents,
             list(self.grid.all_cells.cells),
+            rumor_spread_chance=self.rumor_spread_chance,
             color=colors,
         )
 

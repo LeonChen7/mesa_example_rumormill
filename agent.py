@@ -12,11 +12,12 @@ from mesa.discrete_space import CellAgent
 
 class Person(CellAgent):
 
-    def __init__(self, model, cell, color=None):
+    def __init__(self, model, cell, rumor_spread_chance=0.5, color=None):
         super().__init__(model)
         self.cell = cell
         self.knows_rumor = False
         self.times_heard = 0
+        self.rumor_spread_chance = rumor_spread_chance
         self.color = color if color is not None else self.random.choice(["red", "blue"])
     
 
@@ -25,7 +26,7 @@ class Person(CellAgent):
             neighbors = [agent for agent in self.cell.neighborhood.agents if agent != self]
             if neighbors:
                 neighbor = self.random.choice(neighbors)
-                if not neighbor.knows_rumor:
+                if not neighbor.knows_rumor and self.random.random() < self.rumor_spread_chance:
                     neighbor.knows_rumor = True
                 neighbor.times_heard += 1
     

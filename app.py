@@ -21,11 +21,19 @@ model_parames = {
         "value": False,
         "label": "Use Eight Neighborhood",
     },
+    "rumor_spread_chance": {
+        "type": "SliderFloat",
+        "value": 0.5,
+        "label": "Rumor Spread Chance",
+        "min": 0.0,
+        "max": 1.0,
+        "step": 0.01,
+    },
     "width": 10,
     "height": 10,
 }
 
-rumor_model = RumorMillModel(width=10, height=10, know_rumor_ratio=0.3, eight_neightborhood=False)
+rumor_model = RumorMillModel(width=10, height=10, know_rumor_ratio=0.3, rumor_spread_chance=0.5, eight_neightborhood=False)
 
 renderer = SpaceRenderer(model=rumor_model, backend="matplotlib").render(
     agent_portrayal=agent_portrayal
