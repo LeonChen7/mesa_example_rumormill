@@ -58,7 +58,7 @@ class RumorMillModel(Model):
             model_reporters={
                 "Percentage_Knowing_Rumor": self.compute_percentage_knowing_rumor,
                 "Times_Heard_Rumor": self.compute_average_times_heard,
-                "Ratio_Knowing_Rumor": self.compute_ratio_knowing_rumor
+                "New_People_Knowing_Rumor": self.compute_new_people_ratio_knowing_rumor,
             }
         )
         self.datacollector.collect(self)
@@ -78,7 +78,7 @@ class RumorMillModel(Model):
         total_times_heard = sum(agent.times_heard for agent in self.agents)
         return total_times_heard / self.number_of_agents if self.number_of_agents > 0 else 0
 
-    def compute_ratio_knowing_rumor(self):
-        """Calculate ratio (0.0-1.0) of agents who know the rumor."""
-        agents_knowing = sum(1 for agent in self.agents if agent.knows_rumor)
-        return agents_knowing / self.number_of_agents if self.number_of_agents > 0 else 0
+    def compute_new_people_ratio_knowing_rumor(self):
+        """Calculate ratio of new people knowing the rumor this step."""
+        new_knowers = sum(1 for agent in self.agents if agent.knows_rumor and agent.times_heard == 1)
+        return (new_knowers / self.number_of_agents) * 100 if self.number_of_agents > 0 else 0

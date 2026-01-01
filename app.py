@@ -56,15 +56,15 @@ rumor_spread_plot = make_plot_component(
 successive_diff_plot = make_plot_component(
     "Times_Heard_Rumor", page=1  # Track average times heard
 )
-ratio_knowing_rumor_plot = make_plot_component(
-    "Ratio_Knowing_Rumor", page=1  # Track ratio knowing rumor
+ratio_new_knowing_rumor_plot = make_plot_component(
+    "New_People_Knowing_Rumor", page=1  # Track number of new people knowing rumor
 )
 
 # Create the visualization page with all components
 page = SolaraViz(
     rumor_model,
     renderer,
-    components=[rumor_spread_plot, successive_diff_plot, ratio_knowing_rumor_plot],
+    components=[rumor_spread_plot, successive_diff_plot, ratio_new_knowing_rumor_plot],
     model_params=model_parames,
     name="Rumor Mill Model",
 )
