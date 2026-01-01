@@ -12,12 +12,20 @@ This is an introductory Mesa example that demonstrates:
 
 The model is adapted from the NetLogo Rumor Mill model by Uri Wilensky (1999).
 
+**Key Enhancement**: This implementation adds a `rumor_spread_chance` parameter that controls the probability of successful rumor transmission. This allows exploring how transmission uncertainty affects rumor spread dynamics, compared to the deterministic spreading in the original NetLogo model.
+
 ## How It Works
 
-Agents are placed on a grid. Some agents start knowing a rumor (red), others don't (blue). Each step:
-- Agents who know the rumor tell one random neighbor
-- The rumor spreads with a configurable probability
-- The simulation tracks how the rumor propagates through the population
+Agents are placed on a grid. Some agents start knowing a rumor (red), others don't (blue).
+
+Each simulation step:
+1. All per-step counters are reset
+2. Each agent who knows the rumor tells one random neighbor
+3. The neighbor hears the rumor (counter increments)
+4. The neighbor learns the rumor with probability `rumor_spread_chance`
+5. Data is collected tracking spread metrics
+
+Key distinction: Agents can **hear** the rumor multiple times, but only **learn** it once (when they first successfully receive it based on the spread chance)
 
 ## Installation
 
@@ -55,18 +63,23 @@ This opens a web interface where you can:
 
 **agent.py** - Defines the Person agent
 - `knows_rumor`: Whether agent knows the rumor
-- `times_heard`: How many times agent heard it
+- `times_heard`: Total cumulative times agent has heard the rumor
+- `times_heard_this_step`: Times agent heard the rumor in current step
+- `newly_learned`: Flag for agents who just learned the rumor (never heard before)
 - `step()`: Tell a random neighbor if you know the rumor
 
 **model.py** - Defines the RumorMillModel
 - Creates grid and agents
 - Runs the simulation steps
-- Collects data (percentage knowing rumor, average times heard, percentage of new people hearing the rumor)
+- Collects three metrics:
+  - `Percentage_Knowing_Rumor`: Percentage of all agents who know the rumor
+  - `Times_Heard_Rumor_Per_Step`: Total times rumor was heard this step (whether learned or not)
+  - `New_People_Knowing_Rumor`: Percentage of new learners this step (people who never heard it before)
 
 **app.py** - Visualization interface
-- Grid display with color-coded agents
+- Grid display with color-coded agents (red = knows, blue = doesn't know)
 - Interactive parameter controls
-- Real-time charts
+- Real-time charts tracking rumor spread and new learners
 
 ## Running Programmatically
 
