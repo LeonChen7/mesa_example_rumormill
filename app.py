@@ -54,7 +54,7 @@ rumor_spread_plot = make_plot_component(
     "Percentage_Knowing_Rumor", page=1  # Track percentage who know rumor
 )
 successive_diff_plot = make_plot_component(
-    "Times_Heard_Rumor", page=1  # Track average times heard
+    "New_Times_Heard_Rumor", page=1  # Track average times heard
 )
 ratio_new_knowing_rumor_plot = make_plot_component(
     "New_People_Knowing_Rumor", page=1  # Track number of new people knowing rumor

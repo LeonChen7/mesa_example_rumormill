@@ -58,7 +58,7 @@ class RumorMillModel(Model):
         self.datacollector = mesa.DataCollector(
             model_reporters={
                 "Percentage_Knowing_Rumor": self.compute_percentage_knowing_rumor,
-                "Times_Heard_Rumor": self.compute_average_times_heard,
+                "New_Times_Heard_Rumor": self.compute_new_rumor_times_heard,
                 "New_People_Knowing_Rumor": self.compute_new_people_ratio_knowing_rumor,
             }
         )
@@ -77,10 +77,10 @@ class RumorMillModel(Model):
         agents_knowing = sum(1 for agent in self.agents if agent.knows_rumor)
         return (agents_knowing / self.number_of_agents) * 100 if self.number_of_agents > 0 else 0
 
-    def compute_average_times_heard(self):
-        """Calculate average number of times agents have heard the rumor."""
-        total_times_heard = sum(agent.times_heard for agent in self.agents)
-        return total_times_heard / self.number_of_agents if self.number_of_agents > 0 else 0
+    def compute_new_rumor_times_heard(self):
+        """Calculate number of times agents have heard the rumor per this step."""
+        new_knowers = sum(agent.times_heard for agent in self.agents if agent.newly_learned)
+        return new_knowers
 
     def compute_new_people_ratio_knowing_rumor(self):
         """Calculate percentage of new people who learned the rumor this step."""
