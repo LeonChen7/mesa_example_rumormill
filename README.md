@@ -61,7 +61,7 @@ This opens a web interface where you can:
 **model.py** - Defines the RumorMillModel
 - Creates grid and agents
 - Runs the simulation steps
-- Collects data (percentage knowing rumor, average times heard)
+- Collects data (percentage knowing rumor, average times heard, percentage of new people hearing the rumor)
 
 **app.py** - Visualization interface
 - Grid display with color-coded agents

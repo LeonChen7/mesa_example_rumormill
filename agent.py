@@ -29,6 +29,7 @@ class Person(CellAgent):
         self.cell = cell
         self.knows_rumor = False  # Whether agent knows the rumor
         self.times_heard = 0  # Number of times agent has heard the rumor
+        self.newly_learned = False  # Whether agent just learned the rumor this step
         self.rumor_spread_chance = rumor_spread_chance
         self.color = color if color is not None else self.random.choice(["red", "blue"])
 
@@ -46,6 +47,7 @@ class Person(CellAgent):
                 # Attempt to spread rumor with probability rumor_spread_chance
                 if not neighbor.knows_rumor and self.random.random() < self.rumor_spread_chance:
                     neighbor.knows_rumor = True
+                    neighbor.newly_learned = True  # Mark that they just learned it
                 # Increment times heard counter (even if already knew)
                 neighbor.times_heard += 1
     

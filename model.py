@@ -52,6 +52,7 @@ class RumorMillModel(Model):
             if (agent.color == "red"):
                 agent.knows_rumor = True
                 agent.times_heard = 1
+                agent.newly_learned = True  # They learned it initially
 
         # Set up data collection
         self.datacollector = mesa.DataCollector(
@@ -65,6 +66,9 @@ class RumorMillModel(Model):
 
     def step(self):
         """Execute one step of the model: all agents act, then collect data."""
+        # Reset newly_learned flag for all agents at start of step
+        for agent in self.agents:
+            agent.newly_learned = False
         self.agents.shuffle_do("step")  # Activate all agents in random order
         self.datacollector.collect(self)  # Collect data for this step
 
@@ -79,6 +83,6 @@ class RumorMillModel(Model):
         return total_times_heard / self.number_of_agents if self.number_of_agents > 0 else 0
 
     def compute_new_people_ratio_knowing_rumor(self):
-        """Calculate ratio of new people knowing the rumor this step."""
-        new_knowers = sum(1 for agent in self.agents if agent.knows_rumor and agent.times_heard == 1)
+        """Calculate percentage of new people who learned the rumor this step."""
+        new_knowers = sum(1 for agent in self.agents if agent.newly_learned)
         return (new_knowers / self.number_of_agents) * 100 if self.number_of_agents > 0 else 0
