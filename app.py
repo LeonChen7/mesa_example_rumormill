@@ -3,7 +3,7 @@ Visualization interface for the Rumor Mill model using Mesa's SolaraViz.
 """
 from mesa.visualization import SolaraViz, make_plot_component, SpaceRenderer
 from mesa.visualization.components import AgentPortrayalStyle
-from model import RumorMillModel
+from rumormill.model import RumorMillModel
 
 
 def agent_portrayal(agent):

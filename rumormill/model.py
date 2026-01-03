@@ -2,7 +2,7 @@ import mesa
 from mesa import Model
 from mesa.datacollection import DataCollector
 from mesa.discrete_space import OrthogonalVonNeumannGrid, OrthogonalMooreGrid
-from agent import Person
+from rumormill.agent import Person
 
 
 class RumorMillModel(Model):

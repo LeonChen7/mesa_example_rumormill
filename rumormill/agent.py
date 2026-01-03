@@ -18,7 +18,7 @@ class Person(CellAgent):
     def __init__(self, model, cell, rumor_spread_chance=0.5, color=None):
         """
         Initialize a Person agent.
-
+        
         Args:
             model: The model instance
             cell: The cell where this agent is located

@@ -30,7 +30,7 @@ Key distinction: Agents can **hear** the rumor multiple times, but only **learn*
 ## Installation
 
 ```bash
-pip install mesa
+pip install mesa[rec]
 ```
 
 ## Running the Model
@@ -43,9 +43,6 @@ solara run app.py
 
 or
 
-```bash
-mesa runserver app.py
-```
 
 This opens a web interface where you can:
 - Adjust parameters with sliders
